@@ -5,7 +5,7 @@ const MIR_DATE = new Date("2026-01-24T18:00:00");
 
 // Motivational quotes for a future traumatologist
 const MOTIVATIONAL_QUOTES = [
-  { text: "Tema a tema, simu a simu, (partido a partido)...", emoji: "📚" },
+  { text: "Tema a tema, simu a simu, (partido a partido)", emoji: "📚" },
   {
     text: "A unos días de no volver a estudiar c*ardio ni h*mato nunca más",
     emoji: "🫀🩸",
@@ -17,6 +17,7 @@ const MOTIVATIONAL_QUOTES = [
   },
   { text: "Heaven is gonna be a place on SERMAS with you", emoji: "🏥" },
   { text: "El que algo quiere, patada en los...", emoji: "🥚" },
+  { text: "¡No te queda nada para empezar a hacer guardias!", emoji: "🧟‍♀️" },
 ];
 
 interface TimeLeft {
