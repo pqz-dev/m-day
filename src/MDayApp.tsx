@@ -90,9 +90,13 @@ const Confetti = () => {
   );
 };
 
+// Get a random quote index on app load
+const getRandomQuoteIndex = () =>
+  Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length);
+
 export const MDayApp = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
-  const [currentQuote, setCurrentQuote] = useState(0);
+  const [currentQuote] = useState(getRandomQuoteIndex);
   const [progress] = useState(calculateProgress());
   const isFinished = timeLeft.total === 0;
 
@@ -103,21 +107,6 @@ export const MDayApp = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
-
-  // Rotate quotes every 8 seconds (random selection)
-  useEffect(() => {
-    const quoteTimer = setInterval(() => {
-      setCurrentQuote((prev) => {
-        let next;
-        do {
-          next = Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length);
-        } while (next === prev && MOTIVATIONAL_QUOTES.length > 1);
-        return next;
-      });
-    }, 8000);
-
-    return () => clearInterval(quoteTimer);
   }, []);
 
   const formatNumber = (num: number): string => {
@@ -172,15 +161,14 @@ export const MDayApp = () => {
                 <span className="header-date-text">24 de enero de 2026</span>
               </div>
               <p className="header-subtitle">
-                Lo que te queda para ser LA MEJOR traumatóloga del mundo (y
-                poder descansar):
+                Lo que te queda para ser LA MEJOR traumatóloga del mundo (y que
+                se acabe este horrible año):
               </p>
             </>
           )}
           {isFinished && (
             <p className="celebration-subtitle">
-              ¡Lo has conseguido! 🏆 Ya eres oficialmente LA MEJOR traumatóloga
-              del mundo 👩‍⚕️
+              ¡Feliz año nuevo! 🍇 Ya ha acabado este sufrimiento para siempre
             </p>
           )}
         </header>
