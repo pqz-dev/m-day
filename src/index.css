@@ -1,0 +1,562 @@
+/* ===================================
+   MIR 2026 Countdown - Design System
+   Traumatología Edition 🦴
+   =================================== */
+
+/* Google Fonts - loaded via CDN */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+/* ===================
+   CSS Variables
+   =================== */
+:root {
+  /* Colors - Medical Professional Palette */
+  --color-primary: #0891B2;         /* Cyan - Quirófano */
+  --color-primary-light: #22D3EE;
+  --color-primary-dark: #0E7490;
+  
+  --color-secondary: #059669;       /* Emerald - Esperanza */
+  --color-secondary-light: #10B981;
+  
+  --color-accent: #F97316;          /* Orange - Energía */
+  --color-accent-light: #FB923C;
+  
+  --color-highlight: #EC4899;       /* Pink - Motivación */
+  
+  /* Background Gradient Colors */
+  --bg-dark-1: #0F172A;
+  --bg-dark-2: #1E293B;
+  --bg-dark-3: #0C4A6E;
+  
+  /* Text Colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  /* Bone/Anatomy Colors */
+  --bone-color: #FDF4E3;
+  --bone-shadow: #E8D5B7;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Typography */
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  
+  /* Shadows */
+  --shadow-glow: 0 0 40px rgba(8, 145, 178, 0.3);
+  --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  
+  /* Animation */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+}
+
+/* ===================
+   Reset & Base
+   =================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================
+   App Container
+   =================== */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===================
+   Animated Background
+   =================== */
+.bg-decoration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+
+.bg-blob-1 {
+  width: 600px;
+  height: 600px;
+  background: var(--color-primary);
+  top: -200px;
+  right: -200px;
+  animation-delay: 0s;
+}
+
+.bg-blob-2 {
+  width: 500px;
+  height: 500px;
+  background: var(--color-secondary);
+  bottom: -150px;
+  left: -150px;
+  animation-delay: -7s;
+}
+
+.bg-blob-3 {
+  width: 400px;
+  height: 400px;
+  background: var(--color-highlight);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -14s;
+  opacity: 0.2;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(-30px, -20px) scale(1.02);
+  }
+}
+
+/* ===================
+   Main Content
+   =================== */
+.main-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* ===================
+   Header
+   =================== */
+.header {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.header-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-md);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--color-primary-light) 50%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
+}
+
+.header-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-date {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: 100px;
+  margin-top: var(--spacing-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-date-icon {
+  color: var(--color-accent);
+}
+
+.header-date-text {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ===================
+   Countdown
+   =================== */
+.countdown-container {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.countdown-item {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: var(--spacing-xl) var(--spacing-md);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.countdown-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-glow);
+}
+
+.countdown-item:hover::before {
+  opacity: 1;
+}
+
+.countdown-value {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--spacing-sm);
+  text-shadow: 0 0 30px rgba(8, 145, 178, 0.5);
+}
+
+.countdown-label {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Color variants for each countdown item */
+.countdown-item.days .countdown-value {
+  color: var(--color-primary-light);
+}
+
+.countdown-item.hours .countdown-value {
+  color: var(--color-secondary-light);
+}
+
+.countdown-item.minutes .countdown-value {
+  color: var(--color-accent);
+}
+
+.countdown-item.seconds .countdown-value {
+  color: var(--color-highlight);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ===================
+   Motivation Section
+   =================== */
+.motivation-section {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.motivation-card {
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: var(--spacing-2xl);
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.motivation-card::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  left: 30px;
+  font-size: 6rem;
+  font-family: var(--font-display);
+  color: var(--color-primary);
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.motivation-quote {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.motivation-emoji {
+  display: block;
+  font-size: 2rem;
+  margin-top: var(--spacing-md);
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+/* ===================
+   Progress Section
+   =================== */
+.progress-section {
+  max-width: 500px;
+  margin: 0 auto var(--spacing-2xl);
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.progress-bar {
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  border-radius: 100px;
+  transition: width 1s ease-out;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ===================
+   Decorative Bones
+   =================== */
+.bone-decoration {
+  position: fixed;
+  font-size: 3rem;
+  opacity: 0.1;
+  pointer-events: none;
+  animation: floatBone 15s ease-in-out infinite;
+}
+
+.bone-1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.bone-2 {
+  top: 70%;
+  right: 8%;
+  animation-delay: -5s;
+}
+
+.bone-3 {
+  bottom: 15%;
+  left: 10%;
+  animation-delay: -10s;
+}
+
+.bone-4 {
+  top: 30%;
+  right: 5%;
+  animation-delay: -3s;
+}
+
+@keyframes floatBone {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+/* ===================
+   Footer
+   =================== */
+.footer {
+  margin-top: auto;
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.footer-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.footer-heart {
+  color: var(--color-highlight);
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ===================
+   Responsive Design
+   =================== */
+@media (max-width: 768px) {
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+  
+  .countdown-item {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .countdown-value {
+    font-size: 3rem;
+  }
+  
+  .app-container {
+    padding: var(--spacing-md);
+  }
+  
+  .motivation-card {
+    padding: var(--spacing-lg);
+  }
+  
+  .bone-decoration {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .countdown-value {
+    font-size: 2.5rem;
+  }
+  
+  .header-title {
+    font-size: 2rem;
+  }
+  
+  .header-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* ===================
+   Utilities
+   =================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
