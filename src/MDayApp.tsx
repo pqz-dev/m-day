@@ -150,7 +150,7 @@ export const MDayApp = () => {
           <h1
             className={`header-title ${isFinished ? "celebration-title" : ""}`}
           >
-            {isFinished ? "¡ENHORABUENA!" : "Cuenta atrás M-DAY"}
+            {isFinished ? "¡FELIZ AÑO NUEVO!" : "Cuenta atrás M-DAY"}
           </h1>
           {!isFinished && (
             <>
@@ -162,13 +162,13 @@ export const MDayApp = () => {
               </div>
               <p className="header-subtitle">
                 Lo que te queda para ser LA MEJOR traumatóloga del mundo (y que
-                se acabe este horrible año):
+                acabe este horrible año):
               </p>
             </>
           )}
           {isFinished && (
             <p className="celebration-subtitle">
-              ¡Feliz año nuevo! 🍇 Ya ha acabado este sufrimiento para siempre
+              ¡Enorabuena! 🥳 Ya ha acabado este sufrimiento para siempre
             </p>
           )}
         </header>
