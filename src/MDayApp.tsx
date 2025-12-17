@@ -1,24 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // Target date: MIR Exam - January 24, 2026
-const MIR_DATE = new Date('2026-01-24T00:00:00');
+const MIR_DATE = new Date("2026-01-24T18:00:00");
 
 // Motivational quotes for a future traumatologist
 const MOTIVATIONAL_QUOTES = [
-  { text: "Cada hueso que estudias te acerca más a tu sueño", emoji: "🦴" },
-  { text: "Los mejores traumatólogos fueron opositores antes", emoji: "🏆" },
-  { text: "Tu esfuerzo hoy será el alivio del paciente mañana", emoji: "💪" },
-  { text: "Hueso a hueso, tema a tema... ¡APROBADA!", emoji: "📚" },
-  { text: "La medicina no es un sprint, es una maratón... ¡y tú vas ganando!", emoji: "🏃‍♀️" },
-  { text: "Cuando dudes, recuerda por qué empezaste", emoji: "❤️" },
-  { text: "El MIR es solo el comienzo de una carrera brillante", emoji: "⭐" },
-  { text: "Vas a arreglar huesos rotos y sueños también", emoji: "🩺" },
-  { text: "Fémur, tibia, peroné... y todo lo demás, ¡tú puedes!", emoji: "💀" },
-  { text: "Pronto serás la doctora que siempre soñaste ser", emoji: "👩‍⚕️" },
-  { text: "Cada página estudiada es un paso hacia el quirófano", emoji: "📖" },
-  { text: "Los huesos se unen, y tú también unirás tu futuro", emoji: "🔗" },
-  { text: "¡Tus pacientes te están esperando!", emoji: "🏥" },
-  { text: "La traumatología te necesita... ¡a por ello!", emoji: "🦿" },
+  { text: "Tema a tema, simu a simu, (partido a partido)...", emoji: "📚" },
+  {
+    text: "A unos días de no volver a estudiar c*ardio ni h*mato nunca más",
+    emoji: "🫀🩸",
+  },
+  { text: "¡Estamos todos superorgullosos de ti!", emoji: "❤️" },
+  {
+    text: "Con todo lo que has estudiado, te va a resultar más fácil que...",
+    emoji: "🍦",
+  },
+  { text: "Heaven is gonna be a place on SERMAS with you", emoji: "🏥" },
+  { text: "El que algo quiere, patada en los...", emoji: "🥚" },
 ];
 
 interface TimeLeft {
@@ -49,20 +47,53 @@ const calculateTimeLeft = (): TimeLeft => {
 // Calculate progress (from today until MIR date)
 const calculateProgress = (): number => {
   // Assuming study started around 1 year before the exam
-  const studyStartDate = new Date('2025-01-24T00:00:00');
+  const studyStartDate = new Date("2025-01-24T00:00:00");
   const now = new Date();
-  
+
   const totalStudyTime = MIR_DATE.getTime() - studyStartDate.getTime();
   const elapsedTime = now.getTime() - studyStartDate.getTime();
-  
+
   const progress = (elapsedTime / totalStudyTime) * 100;
   return Math.min(Math.max(progress, 0), 100);
+};
+
+// Confetti component
+const Confetti = () => {
+  const confettiPieces = Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 3,
+    duration: 3 + Math.random() * 2,
+    color: ["#0891b2", "#059669", "#f97316", "#ec4899", "#22d3ee", "#10b981"][
+      Math.floor(Math.random() * 6)
+    ],
+    rotation: Math.random() * 360,
+  }));
+
+  return (
+    <div className="confetti-container">
+      {confettiPieces.map((piece) => (
+        <div
+          key={piece.id}
+          className="confetti-piece"
+          style={{
+            left: `${piece.left}%`,
+            animationDelay: `${piece.delay}s`,
+            animationDuration: `${piece.duration}s`,
+            backgroundColor: piece.color,
+            transform: `rotate(${piece.rotation}deg)`,
+          }}
+        />
+      ))}
+    </div>
+  );
 };
 
 export const MDayApp = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
   const [currentQuote, setCurrentQuote] = useState(0);
   const [progress] = useState(calculateProgress());
+  const isFinished = timeLeft.total === 0;
 
   // Update countdown every second
   useEffect(() => {
@@ -73,23 +104,31 @@ export const MDayApp = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Rotate quotes every 8 seconds
+  // Rotate quotes every 8 seconds (random selection)
   useEffect(() => {
     const quoteTimer = setInterval(() => {
-      setCurrentQuote((prev) => (prev + 1) % MOTIVATIONAL_QUOTES.length);
+      setCurrentQuote((prev) => {
+        let next;
+        do {
+          next = Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length);
+        } while (next === prev && MOTIVATIONAL_QUOTES.length > 1);
+        return next;
+      });
     }, 8000);
 
     return () => clearInterval(quoteTimer);
   }, []);
 
   const formatNumber = (num: number): string => {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, "0");
   };
 
   const quote = MOTIVATIONAL_QUOTES[currentQuote];
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${isFinished ? "celebration-mode" : ""}`}>
+      {/* Confetti effect when countdown is finished */}
+      {isFinished && <Confetti />}
       {/* Background Decoration */}
       <div className="bg-decoration">
         <div className="bg-blob bg-blob-1"></div>
@@ -97,23 +136,52 @@ export const MDayApp = () => {
         <div className="bg-blob bg-blob-3"></div>
       </div>
 
-      {/* Decorative Bones */}
-      <span className="bone-decoration bone-1" aria-hidden="true">🦴</span>
-      <span className="bone-decoration bone-2" aria-hidden="true">🦴</span>
-      <span className="bone-decoration bone-3" aria-hidden="true">🩻</span>
-      <span className="bone-decoration bone-4" aria-hidden="true">💀</span>
+      {/* Decorative emojis */}
+      <span className="bone-decoration bone-1" aria-hidden="true">
+        🦴
+      </span>
+      <span className="bone-decoration bone-2" aria-hidden="true">
+        🏇
+      </span>
+      <span className="bone-decoration bone-3" aria-hidden="true">
+        💉
+      </span>
+      <span className="bone-decoration bone-4" aria-hidden="true">
+        ⚕️
+      </span>
 
       {/* Main Content */}
       <main className="main-content">
         {/* Header */}
         <header className="header">
-          <div className="header-icon" aria-hidden="true">🩺</div>
-          <h1 className="header-title">Cuenta Atrás MIR 2026</h1>
-          <p className="header-subtitle">Tu camino hacia la Traumatología</p>
-          <div className="header-date">
-            <span className="header-date-icon" aria-hidden="true">📅</span>
-            <span className="header-date-text">24 de Enero de 2026</span>
+          <div className="header-icon" aria-hidden="true">
+            {isFinished ? "🎉" : "🩺"}
           </div>
+          <h1
+            className={`header-title ${isFinished ? "celebration-title" : ""}`}
+          >
+            {isFinished ? "¡ENHORABUENA!" : "Cuenta atrás M-DAY"}
+          </h1>
+          {!isFinished && (
+            <>
+              <div className="header-date">
+                <span className="header-date-icon" aria-hidden="true">
+                  📅
+                </span>
+                <span className="header-date-text">24 de enero de 2026</span>
+              </div>
+              <p className="header-subtitle">
+                Lo que te queda para ser LA MEJOR traumatóloga del mundo (y
+                poder descansar):
+              </p>
+            </>
+          )}
+          {isFinished && (
+            <p className="celebration-subtitle">
+              ¡Lo has conseguido! 🏆 Ya eres oficialmente LA MEJOR traumatóloga
+              del mundo 👩‍⚕️
+            </p>
+          )}
         </header>
 
         {/* Countdown */}
@@ -150,35 +218,42 @@ export const MDayApp = () => {
         <section className="progress-section" aria-label="Progreso de estudio">
           <div className="progress-label">
             <span>Tu progreso</span>
-            <span>{progress.toFixed(1)}% completado</span>
+            <span>{progress.toFixed(1)} % completado</span>
           </div>
-          <div className="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
-            <div 
-              className="progress-fill" 
+          <div
+            className="progress-bar"
+            role="progressbar"
+            aria-valuenow={progress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div
+              className="progress-fill"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
         </section>
 
         {/* Motivational Quote */}
-        <section className="motivation-section" aria-label="Frase motivacional">
-          <div className="motivation-card">
-            <p className="motivation-quote">
-              {quote.text}
-            </p>
-            <span className="motivation-emoji" aria-hidden="true">
-              {quote.emoji}
-            </span>
-          </div>
-        </section>
+        {!isFinished && (
+          <section
+            className="motivation-section"
+            aria-label="Frase motivacional"
+          >
+            <div className="motivation-card">
+              <p className="motivation-quote">{quote.text}</p>
+              <span className="motivation-emoji" aria-hidden="true">
+                {quote.emoji}
+              </span>
+            </div>
+          </section>
+        )}
       </main>
 
       {/* Footer */}
       <footer className="footer">
         <p className="footer-message">
-          <span>Hecho con</span>
-          <span className="footer-heart" aria-hidden="true">❤️</span>
-          <span>para la mejor futura traumatóloga</span>
+          <span>Hecho con ❤️ para la mejor futura traumatóloga</span>
         </p>
       </footer>
     </div>

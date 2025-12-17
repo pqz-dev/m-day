@@ -4,39 +4,39 @@
    =================================== */
 
 /* Google Fonts - loaded via CDN */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap");
 
 /* ===================
    CSS Variables
    =================== */
 :root {
   /* Colors - Medical Professional Palette */
-  --color-primary: #0891B2;         /* Cyan - Quirófano */
-  --color-primary-light: #22D3EE;
-  --color-primary-dark: #0E7490;
-  
-  --color-secondary: #059669;       /* Emerald - Esperanza */
-  --color-secondary-light: #10B981;
-  
-  --color-accent: #F97316;          /* Orange - Energía */
-  --color-accent-light: #FB923C;
-  
-  --color-highlight: #EC4899;       /* Pink - Motivación */
-  
+  --color-primary: #0891b2; /* Cyan - Quirófano */
+  --color-primary-light: #22d3ee;
+  --color-primary-dark: #0e7490;
+
+  --color-secondary: #059669; /* Emerald - Esperanza */
+  --color-secondary-light: #10b981;
+
+  --color-accent: #f97316; /* Orange - Energía */
+  --color-accent-light: #fb923c;
+
+  --color-highlight: #ec4899; /* Pink - Motivación */
+
   /* Background Gradient Colors */
-  --bg-dark-1: #0F172A;
-  --bg-dark-2: #1E293B;
-  --bg-dark-3: #0C4A6E;
-  
+  --bg-dark-1: #0f172a;
+  --bg-dark-2: #1e293b;
+  --bg-dark-3: #0c4a6e;
+
   /* Text Colors */
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
   /* Bone/Anatomy Colors */
-  --bone-color: #FDF4E3;
-  --bone-shadow: #E8D5B7;
-  
+  --bone-color: #fdf4e3;
+  --bone-shadow: #e8d5b7;
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -45,15 +45,15 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
-  
+
   /* Typography */
-  --font-display: 'Outfit', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
   /* Shadows */
   --shadow-glow: 0 0 40px rgba(8, 145, 178, 0.3);
   --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  
+
   /* Animation */
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
@@ -63,7 +63,9 @@
 /* ===================
    Reset & Base
    =================== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -76,7 +78,12 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--bg-dark-1) 0%,
+    var(--bg-dark-2) 50%,
+    var(--bg-dark-3) 100%
+  );
   background-attachment: fixed;
   color: var(--text-primary);
   min-height: 100vh;
@@ -158,7 +165,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   25% {
@@ -197,15 +205,25 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .header-title {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--color-primary-light) 50%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--text-primary) 0%,
+    var(--color-primary-light) 50%,
+    var(--color-accent) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -217,6 +235,8 @@ body {
   font-size: 1.25rem;
   color: var(--text-secondary);
   font-weight: 500;
+  margin-top: var(--spacing-md);
+  margin-bottom: -1rem;
 }
 
 .header-date {
@@ -228,6 +248,7 @@ body {
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: 100px;
   margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -267,7 +288,7 @@ body {
 }
 
 .countdown-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -325,8 +346,13 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 /* ===================
@@ -337,7 +363,11 @@ body {
 }
 
 .motivation-card {
-  background: linear-gradient(135deg, rgba(8, 145, 178, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(8, 145, 178, 0.1) 0%,
+    rgba(5, 150, 105, 0.1) 100%
+  );
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
@@ -377,9 +407,16 @@ body {
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  75% { transform: rotate(-5deg); }
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
 }
 
 /* ===================
@@ -408,26 +445,40 @@ body {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-primary) 0%,
+    var(--color-secondary) 50%,
+    var(--color-accent) 100%
+  );
   border-radius: 100px;
   transition: width 1s ease-out;
   position: relative;
 }
 
 .progress-fill::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
   animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* ===================
@@ -466,7 +517,8 @@ body {
 }
 
 @keyframes floatBone {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
@@ -498,8 +550,13 @@ body {
 }
 
 @keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 
 /* ===================
@@ -510,23 +567,23 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-sm);
   }
-  
+
   .countdown-item {
     padding: var(--spacing-lg) var(--spacing-md);
   }
-  
+
   .countdown-value {
     font-size: 3rem;
   }
-  
+
   .app-container {
     padding: var(--spacing-md);
   }
-  
+
   .motivation-card {
     padding: var(--spacing-lg);
   }
-  
+
   .bone-decoration {
     display: none;
   }
@@ -536,11 +593,11 @@ body {
   .countdown-value {
     font-size: 2.5rem;
   }
-  
+
   .header-title {
     font-size: 2rem;
   }
-  
+
   .header-subtitle {
     font-size: 1rem;
   }
@@ -559,4 +616,109 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ===================
+   Celebration Mode
+   =================== */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -20px;
+  animation: confetti-fall linear infinite;
+}
+
+.confetti-piece:nth-child(odd) {
+  width: 8px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.confetti-piece:nth-child(even) {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+@keyframes confetti-fall {
+  0% {
+    top: -20px;
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(25px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(-25px) rotate(180deg);
+  }
+  75% {
+    transform: translateX(25px) rotate(270deg);
+  }
+  100% {
+    top: 100vh;
+    opacity: 0.7;
+    transform: translateX(-25px) rotate(360deg);
+  }
+}
+
+.celebration-mode {
+  animation: celebration-bg 3s ease-in-out infinite alternate;
+}
+
+@keyframes celebration-bg {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(15deg);
+  }
+}
+
+.celebration-title {
+  animation: celebration-text 1s ease-in-out infinite alternate;
+  font-size: clamp(3rem, 8vw, 5rem) !important;
+}
+
+@keyframes celebration-text {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 20px rgba(8, 145, 178, 0.5);
+  }
+  100% {
+    transform: scale(1.05);
+    text-shadow: 0 0 40px rgba(236, 72, 153, 0.8),
+      0 0 60px rgba(249, 115, 22, 0.6);
+  }
+}
+
+.celebration-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-top: var(--spacing-lg);
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
