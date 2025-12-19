@@ -18,6 +18,7 @@ const MOTIVATIONAL_QUOTES = [
   { text: "Heaven is gonna be a place on SERMAS with you", emoji: "🏥" },
   { text: "El que algo quiere, patada en los...", emoji: "🥚" },
   { text: "¡No te queda nada para empezar a hacer guardias!", emoji: "🧟‍♀️" },
+  { text: "Qué ganas de poder hacer planes antes de las 8", emoji: "🕗" },
 ];
 
 interface TimeLeft {
