@@ -5,7 +5,7 @@ const MIR_DATE = new Date("2026-01-24T18:00:00");
 
 // Motivational quotes for a future traumatologist
 const MOTIVATIONAL_QUOTES = [
-  { text: "Tema a tema, simu a simu, (partido a partido)", emoji: "📚" },
+  { text: "Tema a tema, simu a simu, (partido a partido)", emoji: "💪🏼" },
   {
     text: "A unos días de no volver a estudiar c*ardio ni h*mato nunca más",
     emoji: "🫀🩸",
@@ -19,6 +19,7 @@ const MOTIVATIONAL_QUOTES = [
   { text: "El que algo quiere, patada en los...", emoji: "🥚" },
   { text: "¡No te queda nada para empezar a hacer guardias!", emoji: "🧟‍♀️" },
   { text: "Qué ganas de poder hacer planes antes de las 8", emoji: "🕗" },
+  { text: "Libre, libre vas a seeeer", emoji: "🎶" },
 ];
 
 interface TimeLeft {
@@ -44,6 +45,42 @@ const calculateTimeLeft = (): TimeLeft => {
     seconds: Math.floor((difference / 1000) % 60),
     total: difference,
   };
+};
+
+// Calculate Saturdays left until MIR (not counting MIR day)
+const calculateSaturdaysLeft = (): number => {
+  const now = new Date();
+  const mirDate = new Date(MIR_DATE);
+
+  // Start from tomorrow to avoid counting today if it's Saturday
+  const startDate = new Date(now);
+  startDate.setHours(0, 0, 0, 0);
+  startDate.setDate(startDate.getDate() + 1);
+
+  // End date is the day before MIR
+  const endDate = new Date(mirDate);
+  endDate.setHours(0, 0, 0, 0);
+  endDate.setDate(endDate.getDate() - 1);
+
+  let saturdayCount = 0;
+  const currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    // Saturday is day 6
+    if (currentDate.getDay() === 6) {
+      saturdayCount++;
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  // Also check if today is Saturday and hasn't passed
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  if (today.getDay() === 6 && now < mirDate) {
+    saturdayCount++;
+  }
+
+  return saturdayCount;
 };
 
 // Calculate progress (from today until MIR date)
@@ -99,6 +136,7 @@ export const MDayApp = () => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
   const [currentQuote] = useState(getRandomQuoteIndex);
   const [progress] = useState(calculateProgress());
+  const [saturdaysLeft] = useState(calculateSaturdaysLeft());
   const isFinished = timeLeft.total === 0;
 
   // Update countdown every second
@@ -203,6 +241,21 @@ export const MDayApp = () => {
             </div>
           </div>
         </section>
+
+        {/* Simus Counter */}
+        {!isFinished && (
+          <section className="simus-section" aria-label="Simulacros restantes">
+            <div className="simus-card">
+              <span className="simus-icon" aria-hidden="true">
+                📝
+              </span>
+              <p className="simus-text">
+                ¡Sólo <span className="simus-count">{saturdaysLeft}</span> simus
+                más para ser libre!
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* Progress Bar */}
         <section className="progress-section" aria-label="Progreso de estudio">
