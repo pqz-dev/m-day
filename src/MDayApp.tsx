@@ -243,14 +243,14 @@ export const MDayApp = () => {
         </section>
 
         {/* Simus Counter */}
-        {!isFinished && (
+        {!isFinished && saturdaysLeft > 0 && (
           <section className="simus-section" aria-label="Simulacros restantes">
             <div className="simus-card">
               <span className="simus-icon" aria-hidden="true">
                 📝
               </span>
               <p className="simus-text">
-                ¡Sólo <span className="simus-count">{saturdaysLeft}</span> simus
+                ¡Sólo <span className="simus-count">{saturdaysLeft}</span> simu
                 más para ser libre!
               </p>
             </div>
