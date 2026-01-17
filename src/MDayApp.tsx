@@ -73,10 +73,10 @@ const calculateSaturdaysLeft = (): number => {
     currentDate.setDate(currentDate.getDate() + 1);
   }
 
-  // Also check if today is Saturday and hasn't passed
+  // Also check if today is Saturday and it's before 19:00 (simu end time)
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
-  if (today.getDay() === 6 && now < mirDate) {
+  if (today.getDay() === 6 && now < mirDate && now.getHours() < 19) {
     saturdayCount++;
   }
 
