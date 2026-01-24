@@ -74,9 +74,19 @@ const calculateSaturdaysLeft = (): number => {
   }
 
   // Also check if today is Saturday and it's before 19:00 (simu end time)
+  // But NOT if today is the MIR exam day
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
-  if (today.getDay() === 6 && now < mirDate && now.getHours() < 19) {
+  const mirDay = new Date(mirDate);
+  mirDay.setHours(0, 0, 0, 0);
+  const isMirDay = today.getTime() === mirDay.getTime();
+
+  if (
+    today.getDay() === 6 &&
+    now < mirDate &&
+    now.getHours() < 19 &&
+    !isMirDay
+  ) {
     saturdayCount++;
   }
 
